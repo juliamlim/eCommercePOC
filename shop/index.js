@@ -1,18 +1,34 @@
 let stock;
 
-fetch("https://my.api.mockaroo.com/fake_products.json", {
-  headers: {
-    "X-API-Key": "44f77fe0" 
-  }
-}).then(res => res.json())
-.then(list => {
-    const grid = document.querySelector('.grid');
-    list.forEach(item => {
-        const tile = document.createElement('my-tile');
-        tile.setAttribute('name', item.name);
-        tile.setAttribute('price', item.price);
-        // Object.keys(item).forEach(v => tile.setAttribute(v, item[v]));
-        grid.appendChild(tile);
-    });
+const url = `https://freepeople-cors.groupbycloud.com/api/v1/search`;
+const requestData = {
+  area: 'Production',
+  collection: 'fpProdBrowse2ChildRecord',
+  query: '',
+  fields: "*"
+}
+const grid = document.querySelector('.grid');
+
+fetch(url, {
+  method: 'POST',
+  body: JSON.stringify(requestData)
+})
+.then(response => response.json())
+.then(data => {
+  const products = data.records.map(v => v.allMeta);
+  
+  products.forEach(item => {
+    const tile = document.createElement('my-tile', {is: 'div'});
+    const variant = item.visualVariant[0];
+
+    console.log(variant);
+
+    tile.setAttribute('name', item.title);
+    tile.setAttribute('image', variant.gbi_product_tiny_image_url);
+    tile.setAttribute('price', variant.nonvisualVariant[0].displayPrice);
+    // // tile.setAttribute('price', item.price);
+  
+    grid.append( tile )
+  });
 });
 
