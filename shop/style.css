@@ -1,0 +1,24 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:100');
+
+:root {
+    --primary-color: #86e3ce;
+    --secondary-color: #cca8d8;
+    --error-color: #fa897b;
+    --success-color: #d0e65a;
+    --warning-color: #ffdd94;
+    --text-color: #444;
+    --dark-color: #ccc;
+    --light-color: #eee;
+}
+
+* {
+    box-sizing: border-box;
+    color: var(--text-color);
+    font-family: 'Roboto', Verdana, Tahoma, 'Trebuchet MS', Arial, sans-serif;
+    letter-spacing: 2px;
+}
+
+body {
+    margin: 0;
+    background-color: var(--light-color);
+}
