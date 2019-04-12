@@ -51,6 +51,7 @@ fetch(url, {
   menu.append( refinementMenu );
 });
 
+// @todo This doesn't work
 window.addEventListener('add-to-cart', function() {
   alert('added to cart');
 });

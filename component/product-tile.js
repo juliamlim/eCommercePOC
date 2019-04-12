@@ -32,7 +32,8 @@ customElements.define('product-tile', class extends Base {
 
     this.template.querySelector('button').addEventListener('click', this.addToCart);
   }
-
+  
+  // @todo This doesn't work
   addToCart() { 
     this.dispatchEvent( new Event('add-to-cart') );
   }
