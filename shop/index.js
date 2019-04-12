@@ -1,13 +1,10 @@
 let stock;
 
-const url = `https://freepeople-cors.groupbycloud.com/api/v1/search`;
-const requestData = {
-  area: 'Production',
-  collection: 'fpProdBrowse2ChildRecord',
-  query: '',
-  fields: "*"
-}
+const url = SEARCH_URL;
+const requestData = SEARCH_PARAMS;
+
 const grid = document.querySelector('.grid');
+const menu = document.querySelector('.menu');
 
 fetch(url, {
   method: 'POST',
@@ -18,17 +15,43 @@ fetch(url, {
   const products = data.records.map(v => v.allMeta);
   
   products.forEach(item => {
-    const tile = document.createElement('my-tile', {is: 'div'});
+    const tile = document.createElement('product-tile');  
+
     const variant = item.visualVariant[0];
 
-    console.log(variant);
+    const link = variant.nonvisualVariant[0].product_url || '#';
 
+    tile.innerHTML = `<div slot="image"><a class="img-link" href="${CUST_URL}${link}"><img src="https:${variant.gbi_product_tiny_image_url}" ></a></div>`
+
+    tile.setAttribute('class', 'tile');
     tile.setAttribute('name', item.title);
-    tile.setAttribute('image', variant.gbi_product_tiny_image_url);
     tile.setAttribute('price', variant.nonvisualVariant[0].displayPrice);
-    // // tile.setAttribute('price', item.price);
   
-    grid.append( tile )
+    grid.append( tile );
   });
+
+  const refinements = {};
+
+  console.log(data.availableNavigation);
+
+  for (let i = 0; i < 3; i++) {
+    const title = data.availableNavigation[i].displayName;
+    const refinement = data.availableNavigation[i].refinements.map(ref => ({ value: ref.value, count: ref.count }));
+
+    refinements[title] = refinement;
+  }
+
+  const categories = Object.keys(refinements);
+
+  const refinementMenu = document.createElement('refinement-menu');
+  
+  refinementMenu.setAttribute('categories', categories);
+  refinementMenu.setAttribute('refinements', JSON.stringify(refinements));
+
+  menu.append( refinementMenu );
+});
+
+window.addEventListener('add-to-cart', function() {
+  alert('added to cart');
 });
 

@@ -4,19 +4,44 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>Web Components - eCommerce POC</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <header>
-        <h1>Pantry</h1>
+      <h1>Office Supplies</h1>
     </header>
     <main>
-        <aside></aside>
-        <section class="grid"></section>
+      <aside class="menu"></aside>
+      <section class="grid"></section>   
     </main>
-    <script src="../component/base/base.js"></script>
-    <script src="../component/tile/tile.js"></script>
+
+    <template id="product-tile">
+      <style>
+        :host {
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+        }
+        :host button {
+          cursor: pointer;
+        }
+      </style>
+      <slot name="image"><img src="" alt=""></slot>
+      <slot name="info">
+        <h2 class="title"></h2>
+        <p class="price"></p>
+      </slot>
+      <slot name="atc">
+        <button class="atc">Add to Cart</button>
+      </slot>
+    </template>
+
+    <script src="../component/base.js"></script>
+    <script src="../component/product-tile.js"></script>
+    <script src="../component/refinement-menu.js"></script>
+
+    <script src="../env.js"></script>
     <script src="index.js"></script>
 </body>
 </html>

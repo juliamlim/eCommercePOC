@@ -20,5 +20,67 @@
 
 body {
     margin: 0;
-    background-color: var(--light-color);
+    background-color: var(--dark-color);
+}
+
+main {
+  display: grid;
+  grid-template-columns: 280px auto;
+}
+
+h1 {
+  text-align: center;
+}
+
+.menu {
+  padding: 8px;
+  background: var(--light-color);
+  border-radius: 0 5px 5px 0;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 16px;
+  margin: 0 16px;
+}
+
+.tile {
+  background: white;
+  border-radius: 5px;
+  padding: 8px;
+}
+
+.tile .atc {
+  width: 100%;
+  height: 30px;
+  border: none;
+  border-radius: 5px;
+  background-color: var(--error-color);
+  color: white;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.img-link:hover {
+  width: 100%;
+  opacity: .5;
+  transition: opacity .3s ease;
+}
+
+.img-link img {
+  display: block;
+  margin: auto;
+}
+
+@media screen and (max-width: 930px) {
+  .grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media screen and (max-width: 720px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
 }

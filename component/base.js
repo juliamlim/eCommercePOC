@@ -4,22 +4,19 @@ class Base extends HTMLElement {
 
       if(props) {
         Object.keys(props).forEach(item => {
-          console.log('ola');
           this.setAttribute(item, props[item]);
         });
       }
-
-      this.template = '';
-      this.stylesheet = '';
     }
 
     connectedCallback() {
-      this.render();
+      this.init();
+      this.attachShadow({mode: 'open'}).appendChild(this.template.cloneNode(true));
     }
 
     attributeChangedCallback(name, oldValue, newValue) {
       this[name] = newValue;
-      this.render();
+      this.onUpdate();
     }
     
     // ty Ryan!
@@ -33,13 +30,9 @@ class Base extends HTMLElement {
       return prop || null;
     }
 
-    beforeRender() {}
-
-    render() {
-      this.beforeRender();
-      this.innerHTML = this.template;
-      // this.setStyle  ();
-    }
+    init() { }
+    
+    onUpdate() { }
 
     setStyle() {
       const newStyle = document.createElement('style');
