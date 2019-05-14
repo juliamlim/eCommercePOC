@@ -1,4 +1,4 @@
-customElements.define('refinement-menu', class extends Base {
+window.customElements.define('refinement-menu', class extends Base {
   // @todo How to dynamically add and alter these so clients can add and access their own defined props
   static get observedAttributes() { 
     return ['categories', 'refinements'];
